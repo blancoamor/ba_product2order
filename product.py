@@ -64,3 +64,15 @@ class product_product_send2neworder(osv.TransientModel):
             'type': 'ir.actions.act_window',
         }
 
+
+    def onchange_partner_id(self, cr, uid, ids, part, context=None):
+        if not part:
+            return {'value': { 'pricelist_id': False}}
+        part = self.pool.get('res.partner').browse(cr, uid, part, context=context)
+
+        pricelist = part.property_product_pricelist and part.property_product_pricelist.id or False
+        val = {}
+
+        if pricelist:
+            val['pricelist_id'] = pricelist
+        return {'value': val}

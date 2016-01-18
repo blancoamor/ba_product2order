@@ -9,8 +9,8 @@
                 <form>
                     <sheet>
                         <group col="2">
-                            <field name="partner_id" required="True"/>
-                            <field name="pricelist_id" required="True"/>
+                            <field name="partner_id" required="True" on_change="onchange_partner_id(partner_id, context)" domain="[('customer','=',True)]" options="{'no_open': True,'no_create': True}"/>
+                            <field name="pricelist_id" required="True" options="{'no_open': True,'no_create': True}"/>
 
                         </group>
                         <footer>
