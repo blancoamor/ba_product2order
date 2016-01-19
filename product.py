@@ -13,15 +13,18 @@ class product_product_send2neworder(osv.TransientModel):
     def _get_default_pricelist(self, cr, uid, context=None):
         pricelist = context.get('pricelist', False)
         if not pricelist:
-            pricelist=3
+            pricelist=31
         return pricelist
     _columns = {
         "partner_id" : fields.many2one('res.partner', string='Partner'),
         "pricelist_id" : fields.many2one('product.pricelist', string='Pricelist'),
+        "user_id" : fields.many2one('res.users', string='Salesperson'),
           
     }
     _default = {
-        "pricelist_id" : _get_default_pricelist
+        "pricelist_id" : _get_default_pricelist,
+        'user_id': lambda obj, cr, uid, context: uid,
+
     }
 
 
