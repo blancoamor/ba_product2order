@@ -1,18 +1,16 @@
 <?xml version="1.0" encoding="utf-8"?>
 <openerp>
     <data>
-
-    <record id="view_send2neworder" model="ir.ui.view">
+        <record id="view_send2neworder" model="ir.ui.view">
             <field name="name">product.product.send2neworder</field>
             <field name="model">product.product.send2neworder</field>
             <field name="arch" type="xml">
                 <form>
                     <sheet>
                         <group col="2">
-                            <field name="partner_id" required="True" on_change="onchange_partner_id(partner_id, context)" domain="[('customer','=',True)]"/>
-                            <field name="pricelist_id" required="True" options="{'no_open': True,'no_create': True}"/>
-                            <field name="user_id" context="{'default_groups_ref': ['base.group_user', 'base.group_partner_manager', 'account.group_account_invoice', 'base.group_sale_salesman_all_leads']}"/>
-
+                            <field domain="[('customer','=',True)]" name="partner_id" on_change="onchange_partner_id(partner_id, context)" required="True"/>
+                            <field name="pricelist_id" options="{'no_open': True,'no_create': True}" required="True"/>
+                            <field context="{'default_groups_ref': ['base.group_user', 'base.group_partner_manager', 'account.group_account_invoice', 'base.group_sale_salesman_all_leads']}" name="user_id"/>
                         </group>
                         <footer>
                             <button class="oe_highlight" name="send2neworder" string="New orden" type="object"/>
@@ -22,35 +20,25 @@
                 </form>
             </field>
         </record>
-
-
-    <record id="action_send2neworder" model="ir.actions.act_window">
-        <field name="name">Crear un nuevo presupuesto</field>
-        <field name="type">ir.actions.act_window</field>
-        <field name="src_model">product.product</field>
-        <field name="res_model">product.product.send2neworder</field>
-        <field name="view_type">form</field>
-        <field name="view_id" ref="view_send2neworder"/>
-        <field name="context">{'active_ids':active_ids}</field>
-        <field name="view_mode">form</field>
-        <field name="target">new</field>
-
-    </record>
-
-
-
-
-    <record model="ir.values" id="create_action_send2neworder">
-        <!-- field name="model_id" ref="res.partner" /-->
-        <field name="context">{'active_ids':active_ids}</field>
-        <field name="name">Crear un nuevo presupuesto</field>
-        <field name="key2">client_action_multi</field>
-        <field name="value" eval="'ir.actions.act_window,' +str(ref('action_send2neworder'))" />
-        <field name="key">action</field>
-        <field name="model">product.product</field>
-    </record>
-
-
-
+        <record id="action_send2neworder" model="ir.actions.act_window">
+            <field name="name">Crear un nuevo presupuesto</field>
+            <field name="type">ir.actions.act_window</field>
+            <field name="src_model">product.product</field>
+            <field name="res_model">product.product.send2neworder</field>
+            <field name="view_type">form</field>
+            <field name="view_id" ref="view_send2neworder"/>
+            <field name="context">{'active_ids':active_ids}</field>
+            <field name="view_mode">form</field>
+            <field name="target">new</field>
+        </record>
+        <record id="create_action_send2neworder" model="ir.values">
+            <!-- field name="model_id" ref="res.partner" /-->
+            <field name="context">{'active_ids':active_ids}</field>
+            <field name="name">Crear un nuevo presupuesto</field>
+            <field name="key2">client_action_multi</field>
+            <field eval="'ir.actions.act_window,' +str(ref('action_send2neworder'))" name="value"/>
+            <field name="key">action</field>
+            <field name="model">product.product</field>
+        </record>
     </data>
 </openerp>

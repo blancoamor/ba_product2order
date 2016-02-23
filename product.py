@@ -1,10 +1,5 @@
+# -*- coding: utf-8 -*-
 from openerp.osv import osv, fields, expression
-
-import re
-
-import openerp.addons.decimal_precision as dp
-import logging
-
 
 
 class product_product_send2neworder(osv.TransientModel):
